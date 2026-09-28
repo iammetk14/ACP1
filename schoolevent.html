@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School </title>
+    <style>
+        body {
+            background: peachpuff;
+            color: orange;
+            font-family: Sans-serif, Arial;
+            padding: 5px;
+            text-align: left;
+        }
+
+        h1 {
+            color: rgb(255, 51, 51);
+        }
+
+        p {
+            color: rgb(3, 148, 59);
+        }
+
+        .div-info {
+            border: orange solid 2px;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 5px;
+            align-items: center;
+        }
+
+        button {
+            background: orangered;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>School Event detials By Json and Jasynchronus</h1>
+    <p>Our School is organizing an event of which details are brought below!! Check it out and surely join us on the
+        occasion as well!!!</p>
+    <div class="div-info">
+        <h3>Status: </h3>
+        <p id="loadingstatus"></p>
+    </div>
+    <div class="div-info">
+        <h3>Details by Json: </h3>
+        <p id="Jsonitem"></p>
+    </div>
+    <div class="div-info">
+        <h3>Name of event and time and date: </h3>
+        <p id="eventdetails"></p>
+    </div>
+    <button onclick="showDetails()">Show details</button>
+    <p>click this button to find out all details of the event!</p>
+    <script>
+        function loadingmessage(message) {
+            document.getElementById("loadingstatus").innerHTML = message;
+        }
+        function showDetails(){
+        function getschooldata(callback) {
+            callback("your data is loading...Please wait");
+            return new promise(function (resolve) {
+                setTimeout(function () {
+                    let schoolevent = {
+                        name: "Jumbifest",
+                        time: "12:30 pm-4:30 pm",
+                        date: "23rd April",
+                        venue: "The Shriram Millenium School, Big Field",
+                        coordinator: "Ms.Shila Varsi",
+                        RegistrationOpen: true
+                    };
+                    resolve(schoolevent);
+                }, 2000);
+            });
+        }
+    }
+let eventData = await getschooldata(loadingstatus);
+document.getElementById("loadingstatus").innerHTML="Event Data loaded!"
+let Jsontext= Json.stringify(eventData);
+let Eventparse= Json.parse(Jsontext);
+let eventmessage="";
+    </script>
+</body>
+</html>

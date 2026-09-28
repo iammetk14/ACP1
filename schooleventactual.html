@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School </title>
+    <style>
+        body {
+            background: peachpuff;
+            color: orange;
+            font-family: Sans-serif, Arial;
+            padding: 5px;
+            text-align: left;
+        }
+
+        h1 {
+            color: rgb(255, 51, 51);
+        }
+
+        p {
+            color: rgb(3, 148, 59);
+        }
+
+        #div-info {
+            border: orange solid 2px;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 5px;
+            align-items: center;
+        }
+
+        button {
+            background: orangered;
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="getschooldata()">Load status</button>
+    <div id="schooleventtotal">
+        <div id="div-info">
+            <h3>School event data in JSON: </h3>
+            <p id="Jsonitem"></p>
+        </div>
+        <div id="div-info">
+            <h3>date,time and number of participants: </h3>
+            <p id="schooleventdetails"></p>
+        </div>
+        <div id="div-info">
+            <h3>Location of event: </h3>
+            <p id="Location"></p>
+        </div>
+        <div id="div-info">
+        <h3>Is Registration Open?: </h3>
+        <p id="Registrationstatus"></p>
+        </div>
+        <div id="div-info">
+            <h3>Loading status: </h3>
+            <p id="loadingstatus"></p>
+        </div>
+    </div>
+    <script>
+        function loadstatus(loadingmessage) {
+            document.getElementById("loadingstatus").innerHTML=loadingmessage;
+        }
+        function fetchEventData(callback) {
+            callback("Getting the Event Data to you...");
+            return new Promise(function (resolve) {
+                    setTimeout(function () {
+                    let EventData = {
+                        Name: "Jumbifest",
+                        Time: "9 am-4pm",
+                        Date: "12th October, 2026",
+                        Memberlimit:65,
+                        Venue:"Auditorium, Ground Floor, TSMS",
+                        Principal:"Ms.Janki Vinshaj",
+                        eventorganizer:"Mango company",
+                        registrationOpen:true
+                    };
+                    resolve(EventData);
+                },2000);
+
+            });
+        }
+    
+async function getschooldata(){
+let EventData=await fetchEventData(loadstatus);
+document.getElementById("loadingstatus").innerHTML="Event Data is ready and loaded!";
+
+let JsonText=JSON.stringify(EventData);
+let JsonNormal=JSON.parse(JsonText);
+if (JsonNormal.registrationOpen==false){
+RegistratioMessage= "Registration is Closed";
+}
+else {
+RegistratioMessage= "Registration is Open";
+}
+document.getElementById("Registrationstatus").innerHTML=RegistratioMessage;
+document.getElementById("Jsonitem").innerHTML=JsonText;
+document.getElementById("schooleventdetails").innerHTML="Date of the event is "+JsonNormal.Date+" ,The Time of the Event is "+JsonNormal.Time+" ,The number of participants are "+JsonNormal.Memberlimit;
+document.getElementById("Location").innerHTML=JsonNormal.Venue;
+}
+
+</script>
+</body>
+
+</html>
