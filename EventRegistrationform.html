@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration</title>
+    <style>
+        body {
+            background: lightblue;
+            color: rgb(34, 0, 255);
+            font-family: sans-serif, Arial;
+            text-align: center;
+        }
+
+        h1 {
+            color: black;
+        }
+
+        p {
+            color: darkgreen;
+            margin: 4px;
+            padding: 3px;
+        }
+
+        label {
+            color: red;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        button {
+            color: white;
+            background-color: black;
+            margin: 5px;
+            padding: 3px;
+            border: solid;
+            border-radius: 3px;
+        }
+
+        button:hover {
+            color: grey;
+        }
+
+        div {
+            border: solid 3px darkblue;
+            text-align: left;
+        }
+
+        input {
+            padding: 5px;
+        }
+
+        #timer {
+            height: 10px;
+            color: black;
+            border: 3px;
+            margin: 4px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Online registration for school sports event</h1>
+    <p>Register for the huge inter-shool sports event taking place between more than 25 schools!!! Further details will
+        be provided to u below on clicking the button.</p>
+    <div id="infodetails">
+        <div>
+            <h3>Event Details by JSON: </h3>
+            <p id="eventDetailsbyJSON"></p>
+        </div>
+    </div>
+    <form id="RegistrationForm">
+        <label for="NameStudent">Student Name</label><br>
+        <input type="text" id="studentname" required minlength="2" placeholder="Please fill in your name here"><br>
+        <p id="name"></p><br>
+        <label for="EmailStudent">E-mail</label><br>
+        <input type="email" id="email" required placeholder="Please fill your email adress(abc@gmail.com)"><br>
+        <p id="e-mail"></p><br>
+        <label for="AgeStudent">Age</label><br>
+        <input type="text" id="studentage" required minlength="1" maxlength="2"
+            placeholder="Please fill in your age here" min="8" max="18"><br>
+        <p id="AgE"></p><br>
+        <label for="EventStudent">Choose the sport</label><br>
+        <select id="Selectionsportname" required>
+            <option value="Football">Football</option>
+            <option value="Cricket">Cricket</option>
+            <option value="Tennis">Tennis</option>
+            <option value="Badminton">Badminton</option>
+            <option value="Basketball">Basketball</option>
+            <p id="choose"></p>
+        </select>
+    </form>
+    <button onclick="getEvent()">Get Event details</button>
+    <button onclick="saveRegistration()">Finish Registration</button>
+    <button onclick="finalShow()">Show my details</button>
+    <div id="feedback">Waiting for registration...</div>
+    <div id="timer"></div>
+    <script>
+        let EventDetails = {
+            Name: "Talent Fest",
+            Time: "8am-3pm",
+            Date: "12th October, 2026",
+            Venue: "TSMS",
+            Reporting: "Football-Big field, Basketball-Basketball court, tennis-Clay court, Badminton-New court, Cricket-Old Nets",
+            Age: "8-18 ONLY"
+        };
+        let Jsondetails = JSON.stringify(EventDetails);
+        function getEvent() {
+            document.getElementById("eventDetailsbyJSON").innerHTML = Jsondetails;
+        }
+        function saveRegistration() {
+            let formdata = document.getElementById("RegistrationForm");
+            let feedbackdata = document.getElementById("feedback");
+            try {
+                if (!formdata.checkValidity()) {
+                    throw formdata.reportValidity();
+                }
+                let StudentName = document.getElementById("studentname").value;
+                let StudentEmail = document.getElementById("email").value;
+                let StudentAge = document.getElementById("studentage").value;
+                let SportsEvent = document.getElementById("Selectionsportname").value;
+                if (StudentAge > 18 || StudentAge < 8) {
+                    throw "Age must be between 8 and 18 ONLY";
+                }
+                feedback.className = "";
+                document.getElementById("feedback").innerHTML = "Checking Registration Details...";
+                let PassNumber = Math.floor(Math.random() * 1000) + 10;
+
+
+
+            }
+            catch (error) {
+            feedback.className="error";
+            if(error!==undefined){
+            feedback.innerHTML="Registration Failed."+error;
+            }
+            else{
+            feedback.innerHTML="Please complete all fields correctly.";
+            }
+            
+            }
+        }
+
+        function finalShow() {
+            let StudentName = document.getElementById("studentname").value;
+            let StudentEmail = document.getElementById("email").value;
+            let StudentAge = document.getElementById("studentage").value;
+            let SportsEvent = document.getElementById("Selectionsportname").value;
+            let PassNumber = Math.floor(Math.random() * 1000) + 10;
+
+            feedback.className = "success";
+            document.getElementById("feedback").innerHTML = "Registration successful!<br>"+
+            "Student Name= " + StudentName + "<br>" + "Email= " + StudentEmail
+                + "<br>" + "Age= " + StudentAge + "<br>" + "Event= " + SportsEvent+"<br>"+"Event Pass  no.= "+PassNumber;
+        }
+        var seconds = 0;
+        setInterval(function () {
+            seconds = seconds + 1;
+            document.getElementById("timer").textContent = "Hi, You have been here for " + seconds + " seconds";
+        }, 1000);
+
+
+
+    </script>
+</body>
+
+</html>
